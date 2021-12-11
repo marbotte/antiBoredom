@@ -3,33 +3,13 @@ import requests
 import spacy
 
 
-endpoints = [
-    {
-        "id": 1,
-        "name": "GetActivity"
-    },
-    {
-        "id": 2,
-        "name": "GetJoke"
-    }
-]
 
-class Endpoint(Resource):
-    def get(self,id):
-        for endpoint in endpoints:
-            if(id == endpoint["id"]
-               return endpoint, 200
-           return "Endpoint not found for id {}".format(id) ,404
-        
-    
-
-
-
-def get_activity():
-    api = f"https://www.boredapi.com/api/activity"
+def get_activity(type_act: str):
+    if type_act not in ["education", "recreational", "social", "diy", "charity", "cooking", "relaxation", "music", "busywork"]:
+        return "I am a computer... As such I am very dumb, and I did not reocognise your activity type. It should be one of 'education', 'recreational', 'social', 'diy', 'charity', 'cooking', 'relaxation', 'music', 'busywork'"
+    api = f"https://www.boredapi.com/api/activity?type={type_act}"
     response = requests.get(api)
-    content = response.json()
-    return content
+    return response["activity"]
 
 def extract_noun(text: str):
     load_spacy = spacy.load("en_core_web_sm")

@@ -1,22 +1,9 @@
-from flask_restful import Resource
+from flask import Flask
+from flask_restful import Resource, Api, reqparse
+from my_functions import get_activity
+from my_functions import get_joke
 
-
-endpoints = [
-    {
-        "id": 1,
-        "name": "GetActivity"
-    },
-    {
-        "id": 2,
-        "name": "GetJoke"
-    }
-]
-
-class Endpoint(Resource):
-    def get(self,id):
-        for endpoint in endpoints:
-            if(id == endpoint["id"]
-               return endpoint, 200
-           return "Endpoint not found for id {}".format(id) ,404
-        
+class ActJoke(Resource):
+    def get(self, type_act):
+        return get_activity(type_act)
     
