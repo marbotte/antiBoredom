@@ -10,10 +10,6 @@ import psycopg2
 from psycopg2 import sql
 from io import BytesIO
 from flask import send_file
-from pywebio import *
-from pywebio.input  import *
-from pywebio.output  import *
-from pywebio.pin import *
 
 
 
@@ -98,9 +94,3 @@ def export_log(connection):
     cur.close()
     response_stream = BytesIO(tab.to_csv().encode())
     return send_file(response_stream, mimetype = "text/csv", attachment_filename = "export.csv")
-
-def renderMainPage():
-    put_markdown("# Anti-Boredom")
-    put_markdown("This application allows you to find an activity, and just for fun, gives you a joke using one word from the activity")
-
-
