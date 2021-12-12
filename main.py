@@ -85,7 +85,7 @@ def act_joke(type_act: str):
 
 def exp_act_joke(type_act: str):
     extensive_res = act_joke(type_act)
-    return json.dumps({"activity": extensive_res["activity"], "joke": extensive_res["joke"]})
+    return {"activity": extensive_res["activity"], "joke": extensive_res["joke"]}
 
 def export_log(connection):
     cur = connection.cursor()
