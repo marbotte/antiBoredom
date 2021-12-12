@@ -1,9 +1,9 @@
+random
 flask_restful
 webargs
 requests
 spacy
 flask
-random
 os
 psycopg2-binary
 pandas
