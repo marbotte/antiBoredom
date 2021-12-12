@@ -5,5 +5,4 @@ spacy
 flask
 psycopg2-binary
 pandas
-io
 flask
