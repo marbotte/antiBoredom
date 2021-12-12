@@ -3,7 +3,6 @@ webargs
 requests
 spacy
 flask
-os
 psycopg2-binary
 pandas
 io
