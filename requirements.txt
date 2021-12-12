@@ -6,3 +6,6 @@ flask
 random
 os
 psycopg2-binary
+pandas
+io
+flask

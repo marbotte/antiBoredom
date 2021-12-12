@@ -129,5 +129,5 @@ dmypy.json
 .pyre/
 
 # Vim/kate temporary files
-.swp
-.kate-swp
+*.swp
+*.kate-swp

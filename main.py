@@ -5,14 +5,22 @@ import random
 import re
 import json
 import os
+import pandas as pd
 import psycopg2
 from psycopg2 import sql
-
+from io import BytesIO
+from flask import send_file
+from pywebio import *
+from pywebio.input  import *
+from pywebio.output  import *
+from pywebio.pin import *
 
 
 
 DATABASE_URL = os.environ['DATABASE_URL']
 conn = psycopg2.connect(DATABASE_URL, sslmode='require')
+
+
 
 
 def get_activity(type_act: str):
@@ -82,5 +90,17 @@ def act_joke(type_act: str):
 def exp_act_joke(type_act: str):
     extensive_res = act_joke(type_act)
     return json.dumps({"activity": extensive_res["activity"], "joke": extensive_res["joke"]})
+
+def export_log(connection):
+    cur = connection.cursor()
+    query = "SELECT * FROM antiboredom_log"
+    tab = pd.read_sql_query(query, connection)
+    cur.close()
+    response_stream = BytesIO(tab.to_csv().encode())
+    return send_file(response_stream, mimetype = "text/csv", attachment_filename = "export.csv")
+
+def renderMainPage():
+    put_markdown("# Anti-Boredom")
+    put_markdown("This application allows you to find an activity, and just for fun, gives you a joke using one word from the activity")
 
 
