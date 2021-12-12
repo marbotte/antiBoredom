@@ -4,3 +4,5 @@ requests
 spacy
 flask
 random
+os
+psycopg2-binary

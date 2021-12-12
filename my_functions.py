@@ -4,16 +4,24 @@ import spacy
 import random
 import re
 import json
+import os
+import psycopg2
+from psycopg2 import sql
 
+
+
+
+DATABASE_URL = os.environ['DATABASE_URL']
+conn = psycopg2.connect(DATABASE_URL, sslmode='require')
 
 
 def get_activity(type_act: str):
     if type_act not in ["education", "recreational", "social", "diy", "charity", "cooking", "relaxation", "music", "busywork"]:
-        return {"unrecognized": True, "activity": "I am a computer... As such I am very dumb, and I did not reocognise your activity type. It should be one of 'education', 'recreational', 'social', 'diy', 'charity', 'cooking', 'relaxation', 'music', 'busywork'", "key": None}
+        return {"unrecognized": True, "activity": "I am a computer... As such I am very dumb, and I did not reocognise your activity type. It should be one of 'education', 'recreational', 'social', 'diy', 'charity', 'cooking', 'relaxation', 'music', 'busywork'", "key_act": None}
     api = f"https://www.boredapi.com/api/activity?type={type_act}"
     response = requests.get(api)
     content = response.json()
-    return {"unrecognized": False, "type_act": type_act, "activity": content["activity"],"key": content["key"]}
+    return {"unrecognized": False, "type_act": type_act, "activity": content["activity"],"key_act": content["key"]}
 
 def extract_noun(text: str):
     load_spacy = spacy.load("en_core_web_sm")
@@ -30,9 +38,9 @@ def get_joke(word_contains: str):
     api = f"https://v2.jokeapi.dev/joke/Any?contains={word_contains}"
     response = requests.get(api)
     content = response.json()
-    joke = None
+    joke = "This is a very boring activity"
     if content["error"]:
-        return {"error": content["error"], "joke": joke, "id": None}
+        return {"error": content["error"], "joke": joke, "id_joke": None}
     else:
         if content["type"] == 'single':
             joke = content["joke"]
@@ -40,8 +48,17 @@ def get_joke(word_contains: str):
             joke = content["setup"] + ' -> ' + content["delivery"]
 #        else: 
 #            joke= 'This is a very boring activity (type of joke unrecognized)'
-    return {"error": content["error"], "joke": joke, "id": content["id"]}
+    return {"error": content["error"], "joke": joke, "id_joke": content["id"]}
 
+def insert_db(row: dict, connection):
+    cur = connection.cursor()
+    cols = row.keys()
+    query = sql.SQL("INSERT INTO antiboredom_log ({}) VALUES ({})").format(
+        sql.SQL(', ').join(map(sql.Identifier, cols)),
+        sql.SQL(', ').join(map(sql.Placeholder, cols)))
+    cur.execute(query,row)
+    connection.commit()
+    
 def act_joke(type_act: str):
     act = get_activity(type_act)
     extracted = extract_words(act["activity"])
@@ -56,8 +73,8 @@ def act_joke(type_act: str):
             print(word)
             word = extracted[1]
             res_joke = get_joke(word)
-    print(word)
     extensive_res = {**act, **res_joke, **{"word": word}}
+    insert_db(extensive_res, conn)
     return extensive_res
 #    return extracted
 #    return {"activity": act["activity"], "joke": res_joke["joke"]}
