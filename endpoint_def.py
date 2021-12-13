@@ -21,8 +21,8 @@ class ActJoke(Resource):
 
 class ExportCsv(Resource):
     def get(self):
-        return export_log(conn), 200
+        return export_log(conn)
 
 class ExportCsvComplete(Resource):
     def get(self):
-        return export_log_complete(conn), 200
+        return export_log_complete(conn)

@@ -96,7 +96,7 @@ def export_log_complete(connection):
 
 def export_log(connection):
     cur = connection.cursor()
-    query = "SELECT type_act type, activity,key_act key, joke, id_joke id FROM antiboredom_log WHERE NOT unrecognized"
+    query = 'SELECT "type_act" AS "type", "activity","key_act" AS "key", "joke", "id_joke" AS "id" FROM "antiboredom_log" WHERE NOT "unrecognized"'
     tab = pd.read_sql_query(query, connection)
     cur.close()
     response_stream = BytesIO(tab.to_csv().encode())
