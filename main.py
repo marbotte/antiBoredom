@@ -83,13 +83,20 @@ def act_joke(type_act: str):
 #    return extracted
 #    return {"activity": act["activity"], "joke": res_joke["joke"]}
 
-def exp_act_joke(type_act: str):
-    extensive_res = act_joke(type_act)
-    return {"activity": extensive_res["activity"], "joke": extensive_res["joke"]}
+def exp_act_joke(res: dict):
+    return {"activity": res["activity"], "joke": res["joke"]}
+
+def export_log_complete(connection):
+    cur = connection.cursor()
+    query = "SELECT * FROM antiboredom_log"
+    tab = pd.read_sql_query(query, connection)
+    cur.close()
+    response_stream = BytesIO(tab.to_csv().encode())
+    return send_file(response_stream, mimetype = "text/csv", attachment_filename = "export.csv")
 
 def export_log(connection):
     cur = connection.cursor()
-    query = "SELECT * FROM antiboredom_log"
+    query = "SELECT type_act type, activity,key_act key, joke, id_joke id FROM antiboredom_log WHERE NOT unrecognized"
     tab = pd.read_sql_query(query, connection)
     cur.close()
     response_stream = BytesIO(tab.to_csv().encode())
