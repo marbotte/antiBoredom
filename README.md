@@ -60,8 +60,8 @@ curl https://marbotteantiboredom.herokuapp.com/ActJoke/social
 
     ##   % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current
     ##                                  Dload  Upload   Total   Spent    Left  Speed
-    ##   0     0    0     0    0     0      0      0 --:--:-- --:--:-- --:--:--     0  0     0    0     0    0     0      0      0 --:--:-- --:--:-- --:--:--     0  0     0    0     0    0     0      0      0 --:--:--  0:00:02 --:--:--     0  0     0    0     0    0     0      0      0 --:--:--  0:00:03 --:--:--     0  0     0    0     0    0     0      0      0 --:--:--  0:00:04 --:--:--     0100   141  100   141    0     0     34      0  0:00:04  0:00:04 --:--:--    34
-    ## {"activity": "Invite some friends over for a game night", "joke": "I have a joke about Stack Overflow, but you would say it's a duplicate."}
+    ##   0     0    0     0    0     0      0      0 --:--:-- --:--:-- --:--:--     0  0     0    0     0    0     0      0      0 --:--:-- --:--:-- --:--:--     0  0     0    0     0    0     0      0      0 --:--:--  0:00:01 --:--:--     0  0     0    0     0    0     0      0      0 --:--:--  0:00:02 --:--:--     0100   130  100   130    0     0     41      0  0:00:03  0:00:03 --:--:--    41100   130  100   130    0     0     41      0  0:00:03  0:00:03 --:--:--    41
+    ## {"activity": "Write a handwritten letter to somebody", "joke": "I WRITE MY JOKES IN CAPITALS. -> THIS ONE WAS WRITTEN IN PARIS."}
 
 ``` bash
 curl https:///marbotteantiboredom.herokuapp.com/Export | head | column -t -s, 
@@ -69,7 +69,7 @@ curl https:///marbotteantiboredom.herokuapp.com/Export | head | column -t -s,
 
     ##   % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current
     ##                                  Dload  Upload   Total   Spent    Left  Speed
-    ##   0     0    0     0    0     0      0      0 --:--:-- --:--:-- --:--:--     0  0     0    0     0    0     0      0      0 --:--:-- --:--:-- --:--:--     0100  5148  100  5148    0     0   5368      0 --:--:-- --:--:-- --:--:--  5362
+    ##   0     0    0     0    0     0      0      0 --:--:-- --:--:-- --:--:--     0  0     0    0     0    0     0      0      0 --:--:-- --:--:-- --:--:--     0100  6134  100  6134    0     0   5215      0  0:00:01  0:00:01 --:--:--  5215
     ## (23) Failed writing body
     ##    type        activity                                     key      joke                                                                                                                                                                                                      id                                                                                                                                                                
     ## 0  social      Have a bonfire with your close friends       8442249  Why did the JavaScript heap close shop? -> It ran out of memory.                                                                                                                                          31.0                                                                                                                                                              
@@ -98,7 +98,7 @@ def getActJoke(type_act):
 getActJoke("charity")
 ```
 
-    ## {'activity': 'Donate to your local food bank', 'joke': 'Why was the river rich? -> Because it had two banks.'}
+    ## {'activity': 'Volunteer at your local food pantry', 'joke': '.NET developers are picky when it comes to food. -> They only like chicken NuGet.'}
 
 ## 1.4 R
 
@@ -127,7 +127,7 @@ getActJoke <- function(type_act)
 getActJoke("relaxation")
 ```
 
-    ## [1] "{\"activity\": \"Take your dog on a walk\", \"joke\": \"The past, the present and the future walk into a bar. -> It was tense.\"}\n"
+    ## [1] "{\"activity\": \"Look at pictures and videos of cute animals\", \"joke\": \"This is a very boring activity\"}\n"
 
 # 2 Deployment
 
@@ -239,3 +239,28 @@ This application was mostly a proof of concept, and a way to participate
 on a call from the Instituto Humboldt, so I do not plan to work much
 more on its development, but do not use to fork and PR if you are
 interested.
+
+# 5 References
+
+Many documents and examples saved me for doing this API check them out
+at:
+
+<https://github.com/jhollist/dadjokeapi>
+
+<https://github.com/jhollist/dadjokeapi/>
+
+<https://towardsdatascience.com/create-an-app-to-deal-with-boredom-using-pywebio-d17f3acd1613>
+
+<https://medium.com/incresco/how-i-have-created-and-deployed-restful-api-using-python-and-heroku-step-by-step-guide-5b9612e6a532>
+
+<http://swcarpentry.github.io/web-data-python/01-getdata/>
+
+<https://devcenter.heroku.com/articles/heroku-connect-api>
+
+<https://devcenter.heroku.com/articles/python-websockets>
+
+<https://stackoverflow.com/questions/63019676/how-to-return-csv-file-from-json-data-using-flask>
+
+<https://stackoverflow.com/questions/30779584/flask-restful-passing-parameters-to-get-request>
+
+<https://docs.djangoproject.com/en/4.0/howto/outputting-csv/>
