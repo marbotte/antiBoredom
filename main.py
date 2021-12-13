@@ -35,7 +35,7 @@ def extract_noun(text: str):
 def extract_words(text: str):
     pattern = '[A-Za-z]+'
     words = re.findall(pattern, text)
-    del_items = ["A", "a", "s", "An", "an", "The", "the", "One", "one", "is", "This", "this", "That", "that", "get", "on", "up", "down", "in", "your", "to", "with", "make", "are", "be", "go", "Go", "some", "have", "Have", "and", "it", "out", "at", "I", "am", "very", "not"]
+    del_items = ["A", "a", "s", "An", "an", "The", "the", "One", "one", "is", "This", "this", "That", "that", "get", "on", "up", "down", "in", "your", "to", "with", "make", "are", "be", "go", "Go", "some", "have", "Have", "and", "it", "out", "at", "I", "am", "very", "not", "of", "ve", "you", "for", "of", "from"]
     return [x for x in words if x not in del_items]
 
 def get_joke(word_contains: str):
